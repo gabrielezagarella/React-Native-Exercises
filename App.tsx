@@ -1,15 +1,33 @@
-import NavigationProvider from "./src/navigation";
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
-// Installare dipendenze per la navigazione
-// npm i @react-navigation/stack && @react-navigation/native && react-native-gesturehandler && react-native-safe-area-context
-// Riferimento Slide 4
+export default function App() {
+  const [state, setState] = useState("");
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Text style={{ marginVertical: 20 }}>What is your name?</Text>
+      <Text>My name is: {state}</Text>
+      <TextInput
+        placeholder="Enter you name"
+        style={{ height: 40, width: 200 }}
+        onChangeText={(e) => setState(e)}
+      />
+      <View style={{ flexDirection: "row" }}>
+        <Button title="Update" onPress={() => setState("Gabriele")} />
+        <Button title="Delete" color="red" onPress={() => setState("")} />
+      </View>
+    </View>
+  );
+}
 
-// git checkout feature/exercise-1
-// git checkout feature/exercise-2
-// git checkout feature/exercise-3
-// git checkout feature/exercise-4
-
-const App = () => {
-  return <NavigationProvider />;
-};
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 40,
+  },
+});
