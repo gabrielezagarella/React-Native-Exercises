@@ -1,22 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function App() {
-  const [state, setState] = useState("");
   return (
+    // Esempio 1
+    // <View style={styles.container}>
+    //   {/* <Text>Open up App.tsx to start working on your app!</Text> */}
+    //   <View style={styles.box} />
+    //   <View style={styles.box} />
+    //   <View style={styles.box} />
+    //   <StatusBar style="auto" />
+    // </View>
+    // Esempio 2
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text style={{ marginVertical: 20 }}>What is your name?</Text>
-      <Text>My name is: {state}</Text>
-      <TextInput
-        placeholder="Enter you name"
-        style={{ height: 40, width: 200 }}
-        onChangeText={(e) => setState(e)}
-      />
-      <View style={{ flexDirection: "row" }}>
-        <Button title="Update" onPress={() => setState("Gabriele")} />
-        <Button title="Delete" color="red" onPress={() => setState("")} />
+      <View style={styles.containerBoxTop}>
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+      </View>
+      <View style={styles.centainerBoxCenter}>
+        <View style={styles.box} />
+        <View style={styles.box} />
+        <View style={styles.box} />
+      </View>
+      <View style={{ alignSelf: "flex-end" }}>
+        <View style={styles.box} />
       </View>
     </View>
   );
@@ -24,10 +33,28 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    // alignItems: "center",
+    // flexDirection: "row",
+    // justifyContent: "space-between",
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    margin: 20,
+  },
+  centainerBoxCenter: {
     justifyContent: "center",
-    marginHorizontal: 40,
+    alignItems: "center",
+    flex: 1,
+  },
+  containerBoxTop: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  box: {
+    height: 30,
+    width: 30,
+    backgroundColor: "red",
+    margin: 10,
   },
 });
