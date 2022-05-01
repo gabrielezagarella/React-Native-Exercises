@@ -2,29 +2,38 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 
 export default function App() {
+  const FullBox = (item: number[]) => {
+    return item.map(() => (
+      <View style={styles.box}>
+        <View style={styles.fullBox} />
+      </View>
+    ));
+  };
+
   return (
-    // Esempio 1
-    // <View style={styles.container}>
-    //   {/* <Text>Open up App.tsx to start working on your app!</Text> */}
-    //   <View style={styles.box} />
-    //   <View style={styles.box} />
-    //   <View style={styles.box} />
-    //   <StatusBar style="auto" />
-    // </View>
-    // Esempio 2
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.containerBoxTop}>
-        <View style={styles.box} />
-        <View style={styles.box} />
-        <View style={styles.box} />
+      <View style={styles.containerBox}>{FullBox([1, 2])}</View>
+      <View style={{ flex: 1 }}>
+        <View style={{ alignItems: "flex-end" }}>
+          <View style={styles.box} />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <View
+            style={[
+              styles.box,
+              {
+                backgroundColor: "pink",
+              },
+            ]}
+          />
+        </View>
+        <View style={{ justifyContent: "center" }}>
+          <View style={styles.box} />
+        </View>
       </View>
-      <View style={styles.centainerBoxCenter}>
-        <View style={styles.box} />
-        <View style={styles.box} />
-        <View style={styles.box} />
-      </View>
-      <View style={{ alignSelf: "flex-end" }}>
+      <View style={styles.containerBottom}>
+        <View style={{ flexDirection: "row" }}>{FullBox([1, 2])}</View>
         <View style={styles.box} />
       </View>
     </View>
@@ -33,28 +42,34 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    // alignItems: "center",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
     flex: 1,
     backgroundColor: "#fff",
     margin: 20,
   },
-  centainerBoxCenter: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
-  containerBoxTop: {
-    alignItems: "center",
+  containerBox: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    flex: 1,
     marginTop: 20,
   },
-  box: {
+  fullBox: {
     height: 30,
     width: 30,
+    backgroundColor: "yellow",
+    borderRadius: 30,
+  },
+  containerBottom: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flex: 1,
+  },
+  box: {
+    height: 60,
+    width: 60,
     backgroundColor: "red",
     margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
