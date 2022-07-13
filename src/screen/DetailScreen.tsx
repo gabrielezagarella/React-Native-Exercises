@@ -1,11 +1,36 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
 import ScreenFC from "../models/ScreenFC";
+import { useDrawerStatus } from "@react-navigation/drawer";
+import { getDrawerStatusFromState } from "@react-navigation/drawer";
 
-const DetailScreen: ScreenFC<"Detail"> = ({ route }) => {
+const DetailScreen: ScreenFC<"Detail"> = ({ route, navigation }) => {
+  const isDrawerOpen = useDrawerStatus();
+
+  useEffect(() => {
+    navigation.addListener("state", () => {
+      const isDrawerOpen2 = getDrawerStatusFromState({
+        default: isDrawerOpen,
+        key: "",
+        index: 0,
+        routeNames: [],
+        routes: [],
+        stale: false,
+        type: "drawer",
+        history: [],
+      });
+      console.log("isDrawerOpen2", navigation.getState());
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text>DetailScreen {route.params?.id}</Text>
+      <Button
+        title="Open"
+        color={isDrawerOpen ? "red" : "pink"}
+        onPress={() => console.log("isDrawerOpen", isDrawerOpen)}
+      />
     </View>
   );
 };
