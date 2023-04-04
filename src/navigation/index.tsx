@@ -28,7 +28,15 @@ const HomeStack: React.FC = () => {
 const DrawerMenu: React.FC = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: "#c6cbef",
+            width: 240,
+          },
+        }}
+      >
         <Drawer.Screen name="Home" component={HomeStack} />
         <Drawer.Screen name="Detail" component={DetailScreen} />
         <Drawer.Screen name="Profile" component={ProfileScreen} />
