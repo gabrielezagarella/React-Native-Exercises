@@ -11,6 +11,8 @@ import NavigationProvider from "./src/navigation";
 // git checkout feature/drawer-menu
 // npm install @react-navigation/drawer && react-native-reanimated 
 // babel.config.js plugins: ['react-native-reanimated/plugin'], "react-native-reanimated": "~2.14.4",
+// git checkout feature/tab-navigation
+// npm i @react-navigation/bottom-tabs && react-native-vector-icons
 
 const App = () => {
   return <NavigationProvider />;

@@ -3,7 +3,11 @@ type RootStackParams = {
   Detail: {
     id?: string | undefined;
   };
-  Profile: undefined
+  HomeStack: undefined;
+  Profile: undefined;
+  Favorite: undefined;
+  Setting: undefined;
+  Homepage: undefined;
 };
 
 export default RootStackParams;
