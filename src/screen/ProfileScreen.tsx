@@ -1,11 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import ScreenFC from "../models/ScreenFC";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { CustomScreenFC } from "../models/ScreenFC";
 
-const ProfileScreen: ScreenFC<"Profile"> = ({ route }) => {
+const ProfileScreen: CustomScreenFC<"Profile"> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>ProfileScreen {route.params?.id}</Text>
+      <Text>ProfileScreen</Text>
+      <Button
+        title="Go to Setting"
+        color="red"
+        onPress={() => navigation?.navigate("Setting", { setting: "Default" })}
+      />
     </View>
   );
 };

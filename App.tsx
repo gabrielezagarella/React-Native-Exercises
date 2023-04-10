@@ -9,10 +9,16 @@ import NavigationProvider from "./src/navigation";
 // git checkout feature/exercise-3
 // git checkout feature/exercise-4
 // git checkout feature/drawer-menu
-// npm install @react-navigation/drawer && react-native-reanimated 
-// babel.config.js plugins: ['react-native-reanimated/plugin'], "react-native-reanimated": "~2.14.4",
+
+// npm install @react-navigation/drawer
+// babel.config.js plugins: ['react-native-reanimated/plugin'],
+// Nel package.json debtro dependencies aggiungere
+// "react-native-reanimated": "~2.14.4",
+// alla fine npm i
+
 // git checkout feature/tab-navigation
 // npm i @react-navigation/bottom-tabs && react-native-vector-icons
+// npm i --save-dev @types/react-native-vector-icons
 
 const App = () => {
   return <NavigationProvider />;

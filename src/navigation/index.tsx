@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Favorites from "../screen/Favorites";
 import SettingScreen from "../screen/SettingScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ROUTES from "./routes";
 
 const RootStack = createStackNavigator<RootStackParams>();
 const Drawer = createDrawerNavigator();
@@ -19,14 +20,15 @@ const HomeStack: React.FC = () => {
   return (
     <RootStack.Navigator>
       <RootStack.Screen
-        name="Home"
+        name={ROUTES.Home}
         component={HomeScreen}
         options={{
           headerShown: false,
           headerStyle: { backgroundColor: "rgb(79,172,217)" },
         }}
       />
-      <RootStack.Screen name="Detail" component={DetailScreen} />
+      <RootStack.Screen name={ROUTES.Detail} component={DetailScreen} />
+      <RootStack.Screen name={ROUTES.Favorite} component={Favorites} />
     </RootStack.Navigator>
   );
 };
@@ -35,7 +37,7 @@ const TabNavigation: React.FC = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="HomeStack"
+        name={ROUTES.HomeStack}
         component={HomeStack}
         options={{
           headerShown: false,
@@ -46,7 +48,7 @@ const TabNavigation: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="Favorite"
+        name={ROUTES.Favorite}
         component={Favorites}
         options={{
           tabBarLabel: "Favorites",
@@ -65,12 +67,12 @@ const DrawerMenu: React.FC = () => {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Homepage">
         <Drawer.Screen
-          name="Homepage"
+          name={ROUTES.Homepage}
           component={TabNavigation}
           options={{ headerShown: false }}
         />
-        <Drawer.Screen name="Setting" component={SettingScreen} />
-        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name={ROUTES.Setting} component={SettingScreen} />
+        <Drawer.Screen name={ROUTES.Profile} component={ProfileScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

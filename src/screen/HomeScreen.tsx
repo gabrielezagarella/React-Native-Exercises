@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import Card from "../components/Card/Card";
 import { Data } from "../models/Data";
-import ScreenFC from "../models/ScreenFC";
+import { ScreenFC } from "../models/ScreenFC";
 
-const HomeScreen: ScreenFC<"Home"> = ({ navigation }) => {
+const HomeScreen: ScreenFC<"Home"> = ({ navigation, route }) => {
   const [state, setState] = useState<Array<Data>>([]);
   const [page, setPage] = useState<number>(1);
 
@@ -60,8 +60,11 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation }) => {
               <Card
                 item={item}
                 index={index}
-                onPress={() =>
-                  navigation.navigate("Detail", { id: item.id.toString() })
+                onPress={
+                  () =>
+                    navigation.navigate("Detail", { id: item.id.toString() })
+                  // navigation.navigate("Setting", {setting: "ciao"})
+                  // navigation.navigate("Favorite", {bookmark: 2, love: true})
                 }
               />
             )}

@@ -1,12 +1,16 @@
 type RootStackParams = {
-  Home: undefined;
+  Home: { typology: string };
   Detail: {
     id?: string | undefined;
+    name?: string | undefined;
   };
   HomeStack: undefined;
   Profile: undefined;
-  Favorite: undefined;
-  Setting: undefined;
+  Favorite: {
+    love: boolean,
+    bookmark: number
+  };
+  Setting: {setting: string};
   Homepage: undefined;
 };
 

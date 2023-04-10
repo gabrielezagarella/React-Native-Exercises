@@ -1,11 +1,15 @@
 import React from "react";
-import { View, Text } from "react-native";
-import ScreenFC from "../models/ScreenFC";
+import { View, Button } from "react-native";
+import { CustomScreenFC } from "../models/ScreenFC";
 
-const Favorites: ScreenFC<"Favorite"> = () => {
+const Favorites: CustomScreenFC<"Favorite"> = ({ navigation }) => {
   return (
     <View>
-      <Text>Favorites</Text>
+      <Button
+        title="Go to Profile"
+        color="red"
+        onPress={() => navigation?.navigate("Profile")}
+      />
     </View>
   );
 };

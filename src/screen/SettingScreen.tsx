@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import ScreenFC from "../models/ScreenFC";
+import { CustomScreenFC } from "../models/ScreenFC";
 
-const SettingScreen: ScreenFC<"Setting"> = () => {
+const SettingScreen: CustomScreenFC<"Setting"> = () => {
   return (
     <View>
       <Text>SettingScreen</Text>
