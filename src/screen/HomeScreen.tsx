@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -11,10 +11,13 @@ import {
 import Card from "../components/Card/Card";
 import { Data } from "../models/Data";
 import ScreenFC from "../models/ScreenFC";
+import CustomInput from "../components/CustomInput/CustomInput";
 
 const HomeScreen: ScreenFC<"Home"> = ({ navigation }) => {
   const [state, setState] = useState<Array<Data>>([]);
   const [page, setPage] = useState<number>(1);
+  const [getValue, setValue] = useState<string>();
+  const [render, setRender] = useState<number>(1);
 
   useEffect(() => {
     getData();
@@ -26,17 +29,49 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation }) => {
         `https://rickandmortyapi.com/api/character?page=${page}`
       );
       const res = await data.json();
-      console.log("res", res.results);
+      // console.log("res", res.results);
       data.status === 200 && (setState(res.results), setPage(page));
     } catch (err) {
       console.log("ERROR", err);
     }
   };
 
+  useEffect(() => {
+    console.log("home");
+  }, []);
+
+  const RenderInput = useMemo(() => {
+    return (
+      <>
+        <CustomInput
+          placeholder="Insert name"
+          showName={(name) => {
+            console.log("name", name), setValue(name);
+          }}
+        />
+        <Text>{getValue}</Text>
+      </>
+    );
+  }, [getValue]);
+
   return (
     <View style={styles.container}>
       <SafeAreaView />
       <StatusBar style="auto" />
+      {/* <CustomInput
+        placeholder="Insert name"
+        showName={(name) => {
+          console.log("name", name), setValue(name);
+        }}
+      />
+      <Text>{getValue}</Text> */}
+      {RenderInput}
+      <Button
+        title="Render"
+        color="yellow"
+        onPress={() => setRender(render + 1)}
+      />
+      <Text>Click to re render {render}</Text>
       <View style={styles.buttonContainer}>
         <Button
           title="Indietro"
@@ -61,7 +96,10 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation }) => {
                 item={item}
                 index={index}
                 onPress={() =>
-                  navigation.navigate("Detail", { id: item.id.toString() })
+                  navigation.navigate("Detail", {
+                    id: item.id.toString(),
+                    name: item.name,
+                  })
                 }
               />
             )}

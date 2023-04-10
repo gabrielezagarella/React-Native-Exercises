@@ -4,7 +4,7 @@ import React from "react";
 import RootStackParams from "./RootStackParams";
 type ScreenNavigationProps<T extends keyof RootStackParams> = {
   navigation: StackNavigationProp<RootStackParams, T>;
-  route: RouteProp<RootStackParams>;
+  route: RouteProp<RootStackParams, T>;
 };
 type ScreenFC<S extends keyof RootStackParams> = React.FC<
   ScreenNavigationProps<S>
