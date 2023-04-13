@@ -26,6 +26,9 @@ import store from "./src/redux/index";
 // npm install redux react-redux --save
 
 // npm install -g eas-cli
+// eas login
+// eas build --platform android format .aab
+// eas build --profile production --platform android .apk
 
 const App = () => {
   return (
