@@ -1,5 +1,8 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from "@react-navigation/stack";
 import React from "react";
 import RootStackParams from "../models/RootStackParams";
 import DetailScreen from "../screen/DetailScreen";
@@ -11,6 +14,8 @@ import Favorites from "../screen/Favorites";
 import SettingScreen from "../screen/SettingScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ROUTES from "./routes";
+import { useSelector } from "react-redux";
+import { BookmarkProps } from "../redux/actions/bookmarkActions";
 
 const RootStack = createStackNavigator<RootStackParams>();
 const Drawer = createDrawerNavigator();
@@ -34,11 +39,29 @@ const HomeStack: React.FC = () => {
 };
 
 const TabNavigation: React.FC = () => {
+  const { bookmarks } = useSelector(
+    (state: { bookmarkReducer: BookmarkProps }) => state.bookmarkReducer
+  );
+
+  const { navigate } =
+    useNavigation<StackNavigationProp<RootStackParams, ROUTES>>();
+
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName={ROUTES.Home}
+      screenOptions={{
+        tabBarActiveTintColor: "#fc8386",
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
       <Tab.Screen
         name={ROUTES.HomeStack}
         component={HomeStack}
+        listeners={{
+          tabPress: () => {
+            navigate("HomeStack");
+          },
+        }}
         options={{
           headerShown: false,
           tabBarLabel: "Home",
@@ -51,11 +74,13 @@ const TabNavigation: React.FC = () => {
         name={ROUTES.Favorite}
         component={Favorites}
         options={{
+          headerTintColor: "red",
+          headerStyle: { backgroundColor: "#fc8386" },
           tabBarLabel: "Favorites",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bookmark" color={color} size={size} />
           ),
-          tabBarBadge: 3,
+          tabBarBadge: bookmarks.length > 0 ? bookmarks.length : undefined,
         }}
       />
     </Tab.Navigator>

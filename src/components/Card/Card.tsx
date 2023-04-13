@@ -5,38 +5,46 @@ import { Data } from "../../models/Data";
 interface Props {
   item: Data;
   index: number;
-  onPress: () => void;
+  disabled?: boolean;
+  onPress?: () => void;
 }
-const Card = ({ item, index, onPress }: Props) => (
-  <TouchableOpacity activeOpacity={0.5} key={`key-${index}`} onPress={onPress}>
-    <View style={styles.cardContainer}>
-      <Image
-        source={{
-          uri: item.image,
-        }}
-        style={styles.image}
-      />
-      <View style={styles.card}>
-        <View>
-          <Text style={styles.description}>Nome:</Text>
-          <Text style={styles.description}>Specie:</Text>
-          <Text style={styles.description}>Location:</Text>
-        </View>
-        <View>
-          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.tail}>
-            {item.name}
-          </Text>
-          <Text style={styles.tail} ellipsizeMode="tail" numberOfLines={1}>
-            {item.species}
-          </Text>
-          <Text ellipsizeMode="tail" numberOfLines={1} style={styles.tail}>
-            {item.location.name}
-          </Text>
+const Card = ({ item, index, disabled, onPress }: Props) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.5}
+      key={`key-${index}`}
+      onPress={onPress}
+      disabled={disabled && !onPress}
+    >
+      <View style={styles.cardContainer}>
+        <Image
+          source={{
+            uri: item.image,
+          }}
+          style={styles.image}
+        />
+        <View style={styles.card}>
+          <View>
+            <Text style={styles.description}>Nome:</Text>
+            <Text style={styles.description}>Specie:</Text>
+            <Text style={styles.description}>Location:</Text>
+          </View>
+          <View>
+            <Text ellipsizeMode="tail" numberOfLines={1} style={styles.tail}>
+              {item.name}
+            </Text>
+            <Text style={styles.tail} ellipsizeMode="tail" numberOfLines={1}>
+              {item.species}
+            </Text>
+            <Text ellipsizeMode="tail" numberOfLines={1} style={styles.tail}>
+              {item.location.name}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   cardContainer: {

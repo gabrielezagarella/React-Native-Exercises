@@ -1,4 +1,6 @@
 import NavigationProvider from "./src/navigation";
+import { Provider } from "react-redux";
+import store from "./src/redux/index";
 
 // Installare dipendenze per la navigazione
 // npm i @react-navigation/stack && @react-navigation/native && react-native-gesturehandler && react-native-safe-area-context
@@ -20,7 +22,16 @@ import NavigationProvider from "./src/navigation";
 // npm i @react-navigation/bottom-tabs && react-native-vector-icons
 // npm i --save-dev @types/react-native-vector-icons
 
+// git checkout feature/redux
+// npm install redux react-redux --save
+
+// npm install -g eas-cli
+
 const App = () => {
-  return <NavigationProvider />;
+  return (
+    <Provider store={store}>
+      <NavigationProvider />
+    </Provider>
+  );
 };
 export default App;

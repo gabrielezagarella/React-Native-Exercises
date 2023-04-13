@@ -11,10 +11,14 @@ import {
 import Card from "../components/Card/Card";
 import { Data } from "../models/Data";
 import { ScreenFC } from "../models/ScreenFC";
+import { useDispatch } from "react-redux";
+import { addBookmark } from "../redux/actions/bookmarkActions";
 
 const HomeScreen: ScreenFC<"Home"> = ({ navigation, route }) => {
   const [state, setState] = useState<Array<Data>>([]);
   const [page, setPage] = useState<number>(1);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData();
@@ -26,8 +30,12 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation, route }) => {
         `https://rickandmortyapi.com/api/character?page=${page}`
       );
       const res = await data.json();
-      console.log("res", res.results);
-      data.status === 200 && (setState(res.results), setPage(page));
+      if (data.status === 200) {
+        setState(
+          res.results.length > 5 ? res.results.slice(0, 5) : res.results
+        ),
+          setPage(page);
+      }
     } catch (err) {
       console.log("ERROR", err);
     }
@@ -54,6 +62,7 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation, route }) => {
       <View style={styles.shadow}>
         {state.length > 1 ? (
           <FlatList
+            style={{ marginBottom: 120 }}
             data={state}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
@@ -61,17 +70,17 @@ const HomeScreen: ScreenFC<"Home"> = ({ navigation, route }) => {
                 item={item}
                 index={index}
                 onPress={
-                  () =>
-                    navigation.navigate("Detail", { id: item.id.toString() })
-                  // navigation.navigate("Setting", {setting: "ciao"})
-                  // navigation.navigate("Favorite", {bookmark: 2, love: true})
+                  () => {
+                    navigation.navigate("Detail", { id: item.id.toString() });
+                    dispatch(addBookmark(item));
+                  }
                 }
               />
             )}
           />
         ) : (
           <View style={styles.cardContainer}>
-            <Text>Nessun risultato</Text>
+            <Text>No result</Text>
           </View>
         )}
       </View>
