@@ -27,8 +27,11 @@ import store from "./src/redux/index";
 
 // npm install -g eas-cli
 // eas login
-// eas build --platform android format .aab
-// eas build --profile production --platform android .apk
+// eas build --platform android 
+// (format .aab)
+// eas build --profile production --platform android 
+// (format .apk)
+// Remove key extra into app.json
 
 const App = () => {
   return (
