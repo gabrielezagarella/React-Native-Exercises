@@ -1,6 +1,8 @@
 import NavigationProvider from "./src/navigation";
 import { Provider } from "react-redux";
-import store from "./src/redux/index";
+import { persistor, store } from "./src/redux/index";
+import { PersistGate } from "redux-persist/integration/react";
+import { Text } from "react-native";
 
 // Installare dipendenze per la navigazione
 // npm i @react-navigation/stack && @react-navigation/native && react-native-gesturehandler && react-native-safe-area-context
@@ -27,16 +29,23 @@ import store from "./src/redux/index";
 
 // npm install -g eas-cli
 // eas login
-// eas build --platform android 
+// eas build --platform android
 // (format .aab)
-// eas build --profile production --platform android 
+// eas build --profile production --platform android
 // (format .apk)
 // Remove key extra into app.json
+
+// git checkout feature/sign-up-native-component
+// expo install expo-image-picker
+// npm i redux-persist @react-native-async-storage/async-storage
+// https://blog.logrocket.com/use-redux-persist-react-native/
 
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationProvider />
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <NavigationProvider />
+      </PersistGate>
     </Provider>
   );
 };

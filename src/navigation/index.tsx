@@ -16,6 +16,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ROUTES from "./routes";
 import { useSelector } from "react-redux";
 import { BookmarkProps } from "../redux/actions/bookmarkActions";
+import Login from "../screen/Login";
+import SignUp from "../screen/SignUp";
+import { AccountProps } from "../redux/actions/accountActions";
 
 const RootStack = createStackNavigator<RootStackParams>();
 const Drawer = createDrawerNavigator();
@@ -34,6 +37,29 @@ const HomeStack: React.FC = () => {
       />
       <RootStack.Screen name={ROUTES.Detail} component={DetailScreen} />
       <RootStack.Screen name={ROUTES.Favorite} component={Favorites} />
+    </RootStack.Navigator>
+  );
+};
+
+const MainStack: React.FC = () => {
+  return (
+    <RootStack.Navigator>
+      <RootStack.Screen
+        name={ROUTES.Login}
+        component={Login}
+        options={{
+          headerShown: false,
+          headerStyle: { backgroundColor: "rgb(79,172,217)" },
+        }}
+      />
+      <RootStack.Screen
+        name={ROUTES.SignUp}
+        component={SignUp}
+        options={{
+          headerShown: false,
+          headerStyle: { backgroundColor: "rgb(79,172,217)" },
+        }}
+      />
     </RootStack.Navigator>
   );
 };
@@ -88,17 +114,25 @@ const TabNavigation: React.FC = () => {
 };
 
 const DrawerMenu: React.FC = () => {
+  const { account } = useSelector(
+    (state: { accountReducer: AccountProps }) => state.accountReducer
+  );
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Homepage">
-        <Drawer.Screen
-          name={ROUTES.Homepage}
-          component={TabNavigation}
-          options={{ headerShown: false }}
-        />
-        <Drawer.Screen name={ROUTES.Setting} component={SettingScreen} />
-        <Drawer.Screen name={ROUTES.Profile} component={ProfileScreen} />
-      </Drawer.Navigator>
+      {account && account.isLogged ? (
+        <Drawer.Navigator initialRouteName="Homepage">
+          <Drawer.Screen
+            name={ROUTES.Homepage}
+            component={TabNavigation}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen name={ROUTES.Setting} component={SettingScreen} />
+          <Drawer.Screen name={ROUTES.Profile} component={ProfileScreen} />
+        </Drawer.Navigator>
+      ) : (
+        <MainStack />
+      )}
     </NavigationContainer>
   );
 };

@@ -12,6 +12,8 @@ type RootStackParams = {
   };
   Setting: {setting: string};
   Homepage: undefined;
+  SignUp: undefined;
+  Login: undefined;
 };
 
 export default RootStackParams;
