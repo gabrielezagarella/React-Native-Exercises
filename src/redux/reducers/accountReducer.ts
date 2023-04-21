@@ -18,18 +18,24 @@ const accountReducer = (state = initialState, action: AccountAction) => {
       };
     case ACCOUNT_ACTIONS.LOGIN_ACCOUNT:
       if (
-        state.account.email === action.payload.email &&
-        state.account.password === action.payload.password
+        state.account?.email === action.payload.email &&
+        state.account?.password === action.payload.password
       )
         return {
+          ...state,
           account: {
-            ...state,
+            ...state.account,
             isLogged: true,
           },
         };
     case ACCOUNT_ACTIONS.LOGOUT_ACCOUNT:
-      return initialState;
-
+      return {
+        ...state,
+        account: {
+          ...state.account,
+          isLogged: false,
+        },
+      };
     default:
       return state;
   }

@@ -18,6 +18,7 @@ const ProfileScreen: CustomScreenFC<"Profile"> = ({ navigation }) => {
   );
 
   const pickImage = async () => {
+    ImagePicker.requestMediaLibraryPermissionsAsync
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -29,6 +30,8 @@ const ProfileScreen: CustomScreenFC<"Profile"> = ({ navigation }) => {
       setImage(result.assets[0].uri);
     }
   };
+
+  // ImagePicker.requestMediaLibraryPermissionsAsync()
 
   const supportedURL = "https://google.com";
 
